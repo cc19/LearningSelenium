@@ -1,0 +1,425 @@
+Q. WAP to reverse a string without using the reverse method.
+- Using recursion:
+import java.util.Scanner;
+public class StringReverse {
+   public static String reverseString(String str){
+      if(str.isEmpty()){
+         return str;
+      }else{
+         return reverseString(str.substring(1))+str.charAt(0);
+      }
+   }
+   public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Enter a String value: ");
+      String str = sc.next();
+      String result = StringReverse.reverseString(str);
+      System.out.println(result);
+   }
+}
+
+Q. What are the locator strategies in Selenium?
+- There are 9 locators strategies included in Selenium:
+Id
+Name
+Linktext
+Partial Linktext
+Tag Name
+Class Name
+CSS (Cascaded Style Sheets)
+XPath (XML path)
+DOM (Data object modeling) (Not supported by WebDriver)
+
+Q. What is the difference between equlas method and '==' in Selenium?
+- Main difference between .equals() method and == operator is that one is method and other is operator.
+We can use == operators for reference comparison (address comparison) and .equals() method for content comparison. In simple words, == checks if both objects point to the same memory location whereas .equals() evaluates to the comparison of values in the objects.
+E.g
+// Java program to understand 
+// the concept of == operator 
+public class Test { 
+	public static void main(String[] args) 
+	{ 
+		String s1 = new String("HELLO"); 
+		String s2 = new String("HELLO"); 
+		System.out.println(s1 == s2); 
+		System.out.println(s1.equals(s2)); 
+	} 
+} 
+
+Output:
+false
+true
+
+Here we are creating two objects namely s1 and s2.
+Both s1 and s2 refers to different objects.
+When we use == operator for s1 and s2 comparison then the result is false as both have different addresses in memory.
+Using equals, the result is true because its only comparing the values given in s1 and s2.
+
+Q. What is a String?
+- String is nothing but a sequence of character. String is the most usable class in java programming and in Selenium WebDriver. The most important fact about String class is that it is an immutable class, which means once it is created a String object can not be changed.
+
+Q. What is a Hybrid Framework?
+- Hybrid Driven Framework is a combination of both the Data-Driven and Keyword-Driven framework. Here, the keywords, as well as the test data, are externalized. Keywords are maintained in a separate Java class file and test data can be maintained either in a properties file/excel file/can use the data provider of a TestNG framework.
+
+Q. What are the access modifiers in Java?
+- Helps to restrict the scope of a class, constructor , variable , method or data member. There are four types of access modifiers available in java:
+
+Default – No keyword required : accessible only within the same package.
+Private : accessible only within the class in which they are declared.
+Protected : accessible within same package or sub classes in different package.
+Public : has the widest scope among all other access modifiers. accessible from every where in the program. There is no restriction on the scope of a public data members.
+
+Q. Handling frames in Selenium?
+- https://www.guru99.com/handling-iframes-selenium.html
+
+Q. Handling nested frames?
+- At first we must switch to the outer frame by either Index or ID of the iframe
+Once we switch to the outer frame we can find the total number of iframes inside the outer frame, and
+We can switch to the inner frame by any of the known methods.
+While exiting out of the frame, we must exit out in the same order as we entered into it from the inner frame first and then outer frame.
+To move back to the parent frame, you can either use switchTo().parentFrame() or if you want to get back to the main (or most parent) frame, you can use switchTo().defaultContent();
+
+public class FramesInsideFrames {
+public static void main(String[] args) {
+WebDriver driver=new FirefoxDriver();
+	    driver.get("Url");
+	    driver.manage().window().maximize();
+	    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+	    int size = driver.findElements(By.tagName("iframe")).size();
+	    System.out.println("Total Frames --" + size);
+        // prints the total number of frames on the page 
+		
+        driver.switchTo().frame(0); // Switching the Outer Frame    		
+	    System.out.println (driver.findElement(By.xpath("xpath of the outer element ")).getText());
+		//Printing the text in outer frame
+
+		size = driver.findElements(By.tagName("iframe")).size();
+        System.out.println("Total Frames --" + size);
+	    // prints the total number of frames inside outer frame           
+                                                                                             
+	    driver.switchTo().frame(0); // Switching to innerframe
+	    System.out.println(driver.findElement(By.xpath("xpath of the inner element ")).getText());
+		//Printing the text in inner frame
+
+		driver.switchTo().defaultContent();
+	}
+}
+
+Q. Overloading vs Overriding.
+- Overloading occurs when two or more methods in one class have the same method name but different parameters. 	In java, method overloading can't be performed by changing return type of the method only. Return type can be same or different in method overloading. But you must have to change the parameter. Must have at least two methods by the same name in the class, then it will be called Overloading.
+E.g.
+class OverloadingExample{  
+static int add(int a,int b){return a+b;}  
+static int add(int a,int b,int c){return a+b+c;}  
+}
+
+Overriding occurs when two methods have the same method name and parameters but different implementations. One of the methods is in the parent class, and the other is in the child class but both must have the same number of parameters and same parameter types. Must have at least one method by the same name in both parent and child classes, then it will be called Overriding.
+E.g.
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void eat(){System.out.println("eating bread...");}  
+}  
+
+Q. Find elements on page using index in case if there are multiple elements with single selector ?
+- 1. For First Dropdown :
+(//div[@name='expiryDate']/div/a/div[2]/i)[1]
+2. For Second Dropdown :
+(//div[@name='expiryDate']/div/a/div[2]/i)[2]
+
+Q. if the page is taking a time to laod a page how can u handle this. 
+- We need to check if the page is getting loaded within the specified time, otherwise it is a bug. Otherwise, we can wait till all the elements on the page have loaded.
+Selenium WebDriver provides three commands to implement wait in tests.
+Implicit Wait
+Explicit Wait
+Fluent Wait
+
+Implicit Wait directs the Selenium WebDriver to wait for a certain measure of time before throwing an exception. Once this time is set, WebDriver will wait for the element before the exception occurs.
+import java.util.concurrent.TimeUnit;
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+Setting Explicit Wait is important in cases where there are certain elements that naturally take more time to load. If one sets an implicit wait command, then the browser will wait for the same time frame before loading every web element. This causes an unnecessary delay in executing the test script. Explicit wait is more intelligent, but can only be applied for specified elements. However, it is an improvement on implicit wait since it allows the program to pause for dynamically loaded Ajax elements.
+In order to declare explicit wait, one has to use “ExpectedConditions”. The following Expected Conditions can be used in Explicit Wait.
+
+alertIsPresent()
+elementSelectionStateToBe()
+elementToBeClickable()
+elementToBeSelected()
+frameToBeAvaliableAndSwitchToIt()
+invisibilityOfTheElementLocated()
+invisibilityOfElementWithText()
+presenceOfAllElementsLocatedBy()
+presenceOfElementLocated()
+textToBePresentInElement()
+textToBePresentInElementLocated()
+textToBePresentInElementValue()
+titleIs()
+titleContains()
+visibilityOf()
+visibilityOfAllElements()
+visibilityOfAllElementsLocatedBy()
+visibilityOfElementLocated()
+To use Explicit Wait in test scripts, import the following packages into the script.
+
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
+WebDriverWait wait = new WebDriverWait(driver,30);
+The maximum wait time must be set for the execution to layoff. Note that the wait time is measured in seconds.
+
+Fluent Wait looks for a web element repeatedly at regular intervals until timeout happens or until the object is found. Fluent Wait commands are most useful when interacting with web elements that can sometimes take more time than usual to load. This is largely something that occurs in Ajax applications. While using Fluent Wait, it is possible to set a default polling period as needed. The user can configure the wait to ignore any exceptions during the polling period.
+Wait wait = new FluentWait(WebDriver reference)
+.withTimeout(timeout, SECONDS)
+.pollingEvery(timeout, SECONDS)
+.ignoring(Exception.class);
+
+Q. click on the checkbox available in the webtable.
+- Suppose the name of the checkbox element is chk.
+if (!option1.isSelected()) {					
+    chk.click();					
+
+} else {			
+    System.out.println("Checkbox is already clicked");					
+}	
+
+Q. How can you handle popup window?
+- Handling web based pop up:
+WebDriver offers the users with a very efficient way to handle these pop ups using Alert interface. There are the four methods that we would be using along with the Alert interface.
+
+1) void dismiss() – The dismiss() method clicks on the “Cancel” button as soon as the pop up window appears.
+2) void accept() – The accept() method clicks on the “Ok” button as soon as the pop up window appears.
+3) String getText() – The getText() method returns the text displayed on the alert box.
+4) void sendKeys(String stringToSend) – The sendKeys() method enters the specified string pattern into the alert box.
+
+* Switch to Alert
+Alert alert = Driver.switchTo().alert();
+The above command is used to switch the control to the recently generated pop up window.
+* Accept the Alert
+alert.accept();
+The above command accepts the alert thereby clicking on the Ok button.
+* Reject the Alert
+alert.dismiss();
+The above command closes the alert thereby clicking on the Cancel button and hence the operation should not proceed.
+
+Handling window based pop up:
+Robot class is a java based utility which emulates the keyboard and mouse actions and can be effectively used to handling window based pop up with the help of keyboard events.
+The keyPress and keyRelease methods simulate the user pressing and releasing a certain key on the keyboard respectively.
+Robot rb =new Robot();
+rb.keyPress(KeyEvent.VK_D);
+rb.keyRelease(KeyEvent.VK_D);
+
+Q. On opening Naukri website, multiple pop ups appear. How to handle that?
+- After opening the website, we need to get the main window handle by using driver.getWindowHandle().
+We now need to get all the window handles by using driver.getWindowHandles().
+We will compare all the window handles with the main Window handles and close all the child windows which are not needed.
+
+public String getCurrentWindowTitle() {
+	String windowTitle = driver.getTitle();
+	return windowTitle;
+}
+
+public String getMainWindowHandle(WebDriver driver) {
+	return driver.getWindowHandle();
+}
+
+//To close all the other windows except the main window.
+public static boolean closeAllOtherWindows(String openWindowHandle) {
+    Set<String> allWindowHandles = driver.getWindowHandles();
+    for (String currentWindowHandle : allWindowHandles) {
+        if (!currentWindowHandle.equals(openWindowHandle)) {
+            driver.switchTo().window(currentWindowHandle);
+            driver.close();
+        }
+    }
+    
+    driver.switchTo().window(openWindowHandle);
+    if (driver.getWindowHandles().size() == 1)
+        return true;
+    else
+        return false;
+}
+
+@Test
+public void test_CloseAllWindowsExceptMainWindow() {
+    driver = new FirefoxDriver();
+    // It will open Naukri website with multiple windows
+    driver.get("http://www.naukri.com/");
+    
+    // To get the main window handle
+    String windowTitle= getCurrentWindowTitle();
+    String mainWindow = getMainWindowHandle(driver);
+    Assert.assertTrue(closeAllOtherWindows(mainWindow));
+    Assert.assertTrue(windowTitle.contains("Jobs - Recruitment"), "Main window title is not matching");
+}
+
+Q. What is Maven?
+- Maven is a build automation tool developed by Apache used primarily for Java projects. Maven can also be used to build and manage projects written in C#, Ruby, Scala, and other languages.
+Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation. It simplifies the build process. In short terms we can tell maven is a tool that can be used for building and managing any Java-based project.
+
+Q.Where to add geckodriver?
+- Download the installer file.
+Linux: Add in bashrc : code ~/.bashrc
+Windows: Add in environment variable
+
+OR 
+
+Place the installer file in /usr/local/bin
+
+Q. Difference between abstract class and interface.
+- Abstract class and interface both are used to achieve abstraction where we can declare the abstract methods. Abstract class and interface both can't be instantiated. 
+But there are a few differences:
+1) Abstract class can have abstract and non-abstract methods.
+Interface can have only abstract methods. Since Java 8, it can have default and static methods also.
+2) An abstract class can extend another Java class and implement multiple Java interfaces.	
+An interface can extend another Java interface only.
+3) Abstract class can have final, non-final, static and non-static variables.	Interface has only static and final variables.
+4) A Java abstract class can have class members like private, protected, etc.	Members of a Java interface are public by default.
+Simply, abstract class achieves partial abstraction (0 to 100%) whereas interface achieves fully abstraction (100%).
+
+Q. how final keyword is used in different ways?
+- > When a variable is declared with final keyword, its value can’t be modified, essentially, a constant. This also means that you must initialize a final variable. Final variables must be used only for the values that we want to remain constant throughout the execution of program.
+> When a class is declared with final keyword, it is called a final class. A final class cannot be extended(inherited). There are two uses of a final class :
+One is definitely to prevent inheritance, as final classes cannot be extended. For example, all Wrapper Classes like Integer,Float etc. are final classes. We can not extend them.
+The other use of final with classes is to create an immutable class like the predefined String class.You can not make a class immutable without making it final.
+> When a method is declared with final keyword, it is called a final method. A final method cannot be overridden.
+- Abstract vs final class?
+> All the abstract methods should be overridden. 
+Overriding concept does not arise as final class cannot be inherited
+> Abstract class methods functionality can be altered in subclass
+Final class methods should be used as it is by other classes
+
+Q. Junk dimension DW?
+- A Junk Dimension is a dimension table consisting of attributes that do not belong in the fact table or in any of the existing dimension tables. The nature of these attributes is usually text or various flags, e.g. non-generic comments or just simple yes/no or true/false indicators.
+
+Q. webdriver is a class or interface?
+- WebDriver is an abstract interface. 
+An Interface which looks like a class will contain Abstract methods (body less methods). So we cant create an object to interface but we can create classes where we can implement the abstract methods of the interface. The classes which implement the abstract methods of interface are known as implementation classes. When we write WebDriver driver = new FirefoxDriver(); or WebDriver driver = new ChromeDriver() we are implementing rules of interface WebDriver over the third party browser class files Firefox and Chrome.
+
+Q. how a scenario is defined in BDD?
+- Using Gherkin language: Given, When, Then format.
+E.g. 
+@Given
+User is on the login page
+@When
+User enters login id and password and clicks submit button
+@Then
+User gets confirmation message on successful login
+
+Q. Sort without using sort keyword/ Finding second largest element
+- public class SecondLargestInArrayExample{  
+public static int getSecondLargest(int[] a, int total){  
+int temp;  
+for (int i = 0; i < total; i++)   
+        {  
+            for (int j = i + 1; j < total; j++)   
+            {  
+                if (a[i] > a[j])   
+                {  
+                    temp = a[i];  
+                    a[i] = a[j];  
+                    a[j] = temp;  //Sorted
+                }  
+            }  
+        }  
+       return a[total-2];  //Getting 2nd largest element
+}  
+public static void main(String args[]){  
+int a[]={1,2,5,6,3,2};  
+int b[]={44,66,99,77,33,22,55};  
+System.out.println("Second Largest: "+getSecondLargest(a,6));  
+System.out.println("Second Largest: "+getSecondLargest(b,7));  
+}}  
+
+Q. Java Static method?
+- If you apply static keyword with any method, it is known as static method.
+* A static method belongs to the class rather than the object of a class.
+* A static method can be invoked without the need for creating an instance of a class.
+* A static method can access static data member and can change the value of it.
+
+Q. Constructor in java?
+- A constructor in Java is a special method that is used to initialize objects. The constructor is called when an object of a class is created. It can be used to set initial values for object attributes. 
+
+// Create a MyClass class
+public class MyClass {
+  int x;  // Create a class attribute
+
+  // Create a class constructor for the MyClass class
+  public MyClass() {
+    x = 5;  // Set the initial value for the class attribute x
+  }
+
+  public static void main(String[] args) {
+    MyClass myObj = new MyClass(); // Create an object of class MyClass (This will call the constructor)
+    System.out.println(myObj.x); // Print the value of x
+  }
+}
+
+// Outputs 5
+Note that the constructor name must match the class name, and it cannot have a return type (like void).
+Also note that the constructor is called when the object is created.
+All classes have constructors by default: if you do not create a class constructor yourself, Java creates one for you. However, then you are not able to set initial values for object attributes.
+Constructors can also take parameters, which is used to initialize attributes.
+
+public class MyClass {
+  int x;
+
+  public MyClass(int y) {
+    x = y;
+  }
+
+  public static void main(String[] args) {
+    MyClass myObj = new MyClass(5);
+    System.out.println(myObj.x);
+  }
+}
+
+// Outputs 5
+
+Q. Page Object Model vs Page Factory?
+- Page Object Model (POM) is a design pattern, popularly used in test automation that creates Object Repository for web UI elements. The advantage of the model is that it reduces code duplication and improves test maintenance.
+For code: https://www.guru99.com/page-object-model-pom-page-factory-in-selenium-ultimate-guide.html
+
+Page Factory is an inbuilt Page Object Model concept for Selenium WebDriver but it is very optimized. Here as well, we follow the concept of separation of Page Object Repository and Test Methods. Additionally, with the help of PageFactory class, we use annotations @FindBy to find WebElement. We use initElements method to initialize web elements.
+
+Difference:
+Page Object Model (POM):
+1. POM is a Design pattern which segregates selenium code based on pages.
+Ex: Create a separate java class for the Login page, one more class for Home Page etc.
+2. A Page Object Model is a way of representing an application in a test framework. For every ‘page’ in the application, you create a Page Object to reference the ‘page’.
+
+Page Factory:
+1. Advanced concept ( POM + new features )or
+Elements are identified using @FindBy or @FindBys Annotation
+Initialism all the elements declared in Point#1 at a time.(in POM, initialization happens on the fly )
+PageFactory.initElements(driver,this);
+2. A Page Factory is one way of implementing a Page Object Model. In order to support the Page Object pattern, WebDriver’s support library contains a factory class.
+
+Q. What happens if you keep return type for a constructor?
+- In this case Java will treat this code as a normal method , It is not a constructor at all. But compiler gives a warning saying that method has a constructor name.
+
+Q. Can we write two methods in same class with same name and same signature?
+- No. Different signature is needed. We call that Overloading.
+
+Q. Can we write ChromeDriver driver new Chromedriver ()?
+- If you use ChromeDriver driver = new ChromeDriver(); the ChromeDriver instance which will get created through that we will be only able to invoke and act on the methods implemented by ChromeDriver and supported by Chrome Browser only.
+
+Q. super and this keywords in Java?
+super keyword is used to access methods of the parent class while this is used to access methods of the current class.
+super is used to refer super-class’s instance as well as static members
+this is used to refer current-class’s instance as well as static members
+
+Q. Throw vs throws.
+- 1) Java throw keyword is used to explicitly throw an exception.	
+Java throws keyword is used to declare an exception.
+2) Throw is used within the method.	
+Throws is used with the method signature.
+3) Throw is followed by an instance.	
+Throws is followed by class.
+4) You cannot throw multiple exceptions.	
+You can declare multiple exceptions e.g.
+public void method()throws IOException,SQLException.
+5) Checked exception cannot be propagated using throw only.	
+Checked exception can be propagated with throws.
+
+Q. 

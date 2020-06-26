@@ -1,0 +1,69 @@
+> Installing docker on windows:
+Go to docs.docker.com/install -> Docker for Windows -> Download from docker Hub -> Sign up
+Login with the creds -> Get Docker button click
+Install the file
+go to cmd -> Run as admininstrator -> type docker -> If you get details then it is installed
+Checking all properties of the installation:
+'docker version' -> Check client as well as server version
+type 'docker run hello-world' -> 'Hello from Docker' means everything is ok
+docker-compose
+docker-compose version
+docker system prune -af : Cleaning everything(Images, containers)
+
+> Installing docker on Linux:
+On Linux Mint, the official instructions will not work. Go into /etc/apt/sources.list.d/additional-repositories.list and change 'serena' to 'xenial'. Then do the following.
+
+* sudo apt-get remove docker docker-engine docker.io containerd runc
+* sudo apt-get update
+* sudo apt-get install \
+ apt-transport-https \
+ ca-certificates \
+ curl \
+ gnupg-agent \
+ software-properties-common
+* curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+* sudo apt-key fingerprint 0EBFCD88
+* sudo add-apt-repository \
+ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+ $(lsb_release -cs) \
+ stable"  
+* sudo apt-get update
+* sudo apt-get install docker-ce docker-ce-cli containerd.io
+# apt-cache madison docker-ce
+* sudo docker run hello-world
+* sudo usermod -aG docker $USER
+
+Reference: https://stackoverflow.com/questions/41133455/docker-repository-does-not-have-a-release-file-on-running-apt-get-update-on-ubun
+
+To view a processes:
+docker ps
+If not working then provide admin privileges: sudo docker ps
+If still not then we need to restart the docker service: 
+sudo service docker restart
+then try docker ps
+
+> Terminologies:
+- Dockerfile: Coantains the instructions for docker to read a file, to create the VM as per the instructions given in the file. This file does not have any extension.
+- Build: Similar to java compile
+- Image: Snapshot of virtual machine. It contains all the softwares we need to install in it.
+- Tag: Version of image.
+- Container: Actual VM running. Light weight virtual machine created from a specific image. We can create multiple containers from the same image. 
+- DockerHub: Image repository
+
+Total flow:
+Dockerfile----build----->Image---push----->DockerHub----pull----->Image-----run------>Container1
+                                                                             |-------> Container2
+                                                                             |-------> Container3
+
+docker-compose.yaml -> Docker Compose is used to run multiple containers as a single service. For example, suppose you had an application which required NGNIX and MySQL, you could create one file which would start both the containers as a service without the need to start each one separately.
+'up' command will create everything.
+
+> Docker Commands:
+docker pull <imageName>: pulls an image from DockerHub
+docker images: shows all the images in our machine
+docker ps: shows all the running containers
+docker ps -a: shows all the containers including stopped containers
+docker run <imageName>: creates a container from an image
+docker stop <containerId or containerName>: stops a running container
+docker system prune -f: removes all stopped containers. do not touch running containers
+docker system prune -a: removes all stopped containers + unused images. donot touch running containers.

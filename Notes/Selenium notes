@@ -1,0 +1,444 @@
+Alerts, Annotations, Assertions, Data Base Connections, Enable/Disable Web element, Framework, Java Script Executor, Locators, Object Repository, Waits, Window Handling, XPATH
+
+Q. Usage of testng xml file:
+- We can execute multiple test cases as a suite
+- We can create a number of test suites and we can execute them parallelly 
+- We can pass parameters from the xml file to the test cases
+
+Q. How to create TestNG XML?
+- Step 1:- For this we need to configure IntelliJ first:
+Go to File -> Settings -> Plugins -> Search for "Create TestNG XML" -> Install and restart IntelliJ
+Right click on the project -> Create TestNG XML -> Go to Code -> Reformat Code
+Step 2:- In the XML file add the following:
+<classes>
+            
+            <class name="packageName.javaFileName1"/>
+            <class name="packageName.javaFileName2"/>
+            .
+            .
+            .
+            <class name="packageName.javaFileNameN"/>
+</classes>
+Step 3:- Check if the individual java files are running successfully. Now right click on the xml file created and run.
+
+Q. How to generate TestNG report?
+- In Eclipse, by default a testNG report is generated. But in IntelliJ we need to do some configuration.
+Step 1: Go to Run -> Edit Configurations -> TestNG -> Select the xml file -> Go to Listeners tab -> + -> Search by Name -> Search for EmailableReporter and add it -> Repeat the process and search for FailedReporter -> Apply -> Ok
+Step 2: Right click on the project and refresh it
+Step 3: Run the project from the xml file. A new folder gets created named 'test-output' with the report named as emailable-report.html.
+If the test run fails then a 'testng-failed.xml' file is created with only the failed part details. Once we have fixed the issue, we can run this xml file to test the failed parts only. This does not change the emailable-report.html output. To generate fully green testng report we need to execute the whole project again from testng.xml file.
+
+Q. The difference between findElement and findElements methods?
+- findElement method is used to access a single web element on a page. It returns the first matching element. It throws a NoSuchElementException exception when it fails to find If the element.
+driver.findElement(By.xpath("Value of Xpath"));
+findElements method returns the list of all matching elements. The findElement method throws a NoSuchElementException exception when the element is not available on the page. Whereas, the findElements method returns  an empty list when the element is not available or doesn’t exist on the page. It doesn’t throw NoSuchElementException.
+List link = driver.findElements(By.xpath("Value of Xpath"));
+for(WebElement element:link)
+{
+System.out.println(element.getText());
+}
+// Click on the first link
+driver.findElement(By.xpath("//*[@id='rso']/div/div/div/h3/a")).click();
+
+Q. Test case template for web testing?
+- Project name, Module name, Created by, Date of creation, reviewed by, date of review, executed by, Date of execution, test scenario, tase case id, test case description, Precondition, Test steps, Test data, expected result, post condition, actual result, status of the bug.
+
+Q. How do you decide when you have tested enough?
+- There are many factors involved in the real time projects to decide when to stop testing.
+> If we reach Testing deadlines or release deadlines
+> By reaching the decided pass percentage of test cases
+> If the risk in the project is under the acceptable limit
+> If All the high priority bugs and blockers are fixed
+> If we met the acceptance criteria
+As per ISTQB, It depends on the risks for the system being tested.
+
+Q. What are the advantage and disadvantages of Automated Testing?
+- Advantages:
+1. Automation testing is faster in execution
+2. It is cheaper compared to manual testing in a long run
+3. Automated testing is more reliable, powerful and versatile
+4. It is mostly used for regression testing
+5. It does not require human intervention. Test scripts can be run unattended
+
+Disadvantages:
+1. It is recommended only for stable products
+2. Automation testing is expensive initially
+3. Most of the automation tools are expensive
+4. It has some limitations such as handling captcha, fonts, color
+5. Huge maintenance in case of repeated changes in the requirements
+
+
+Q. What is MR and ER?
+- MR: MR stands for Modification Request. It is used to change the existing functionality in a software, it is usually requested by clients.
+ER: ER stands for Enhancement report. It is used to add a new feature in a software. It is usually requested by clients.
+
+
+Q. TestNG parameterized test
+- Process 1: Using testng.xml file
+1. In the class file, write the test like this:
+    @Test
+    @Parameters({"uid", "pwd"})             <-----------------------------These same names should be passed as values to the web elements as well as in the xml file
+    public void VerifyLoginPageWithParameter(String uid, String pwd) {
+        driver.findElement(By.name("uid")).sendKeys(uid);
+        driver.findElement(By.name("password")).sendKeys(pwd);
+        driver.findElement(By.name("btnLogin")).click();
+    }
+2. In the testng.xml file, add the parameters like this inside the suite:
+    <test name="test1">
+        <parameter name="uid" value="mngr265692"/>
+        <parameter name="pwd" value="amApUbu"/>
+        <classes>
+            <class name="ParameterTest"/>
+        </classes>
+    </test>
+    <test name = "test2">
+        <parameter name="uid" value="mngr265692"/>
+        <parameter name="pwd" value="password"/>
+        <classes>
+            <class name="ParameterTest"/>
+        </classes>
+    </test>
+    <test name = "test3">
+        <parameter name="uid" value="userid"/>
+        <parameter name="pwd" value="amApUbu"/>
+        <classes>
+            <class name="ParameterTest"/>
+        </classes>
+    </test>
+
+Q. Difference between webdriver.get() and webdriver.navigate()
+- The main difference between get() and navigate() is, both are performing the same task but with the use of navigate() you can move back() or forward() in your session's history. Also, navigate() is faster than get() because navigate() does not wait for the page to load fully or completely.
+
+# If no name for dataprovider is passed, it takes the name of the method.
+A Data Provider is a method annotated with @DataProvider. This annotation has only one string attribute: its name. If the name is not supplied, the data provider’s name automatically defaults to the method’s name. A data provider returns an array of objects.
+
+Q. Basic steps for checking an web application (e.g travel booking site).
+- 1. Search
+2. Modify the search results page with our criteria
+3. Analyze the results to make our selection (For selecting search results, we normally use XPath)
+4. Switch to the newly opened tab (On selecting a hotel, it by default opens in a new tab)
+5. Book reservation
+6. Fill out conatct/billing
+7. Get confirmation
+
+Q. Key Differences Between List and ArrayList?
+- One of the most important differences between List and ArrayList is that 1) list is an interface and ArrayList is a standard Collection class.
+2) List interface extends the Collection framework whereas, the ArrayList extends AbstractList Class and it implements List interfaces.
+3) The namespace for List interface is System.Collection.Generic whereas, the namespace for ArrayList is System.Collection.
+4) List interface creates a collection of elements that is stored in a sequence and are identified or accessed by their index number. On the other hand, ArrayList creates an array of objects where the array can dynamically grow when required.
+
+Q. BDD?
+- It is a mixture of Domain Driven design and Test Driven Development. So it brings business and Technology together.
+
+Q. Test Harness.
+Test harness is a collectio of saoftware and test data configured to test a program unit by running it under varying conditions and monitoring its behaviour and outputs. It has two main parts: test execution engine(JUnit, NUnit, TestNG) and test script repository(The DLL files or the scenarios of the spec).
+Objective of test harness:
+> Automate the testing process
+> Execute test suites of test cases
+> Generate associated test reports 
+
+Differences Between Test Harness vs Test Framework:
+
+Definition:
+Test automation framework is a set of procedures, processes, intellectual concept and environment through which the tester can design and implement automated tests.
+A test harness is a set of drivers and stubs, which are actually small dummy programs written in programming languages such as JAVA, .NET, etc. that interact with the application software under test. Stubs are substitute or proxy for the actual module of code that needs to take its place. The entire framework: The process of planning, creating and usage of stubs and/or drivers to carry out the integration testing is called the Test Harness.
+Composition:
+Test automation framework is composed of information such as the test library, automated testing, testing tools, best practices, and testing platform.
+Test harness composed of all the information which is required to compile and execute a test such as test cases, source code file under test, target deployment port(TDP), and stubs.
+Record and Playback mechanism:
+It allows tester can manually “Record & Playback” script in this framework.
+Testers cannot use “Record & Playback” script in case of Test Harness.
+Examples:
+Test Automation framework can be categorized into Data-driven testing, Modularity driven testing, Hybrid testing, Code driven testing, module driven testing, behavior driven testing, and Keyword driven testing.
+Test harness can be used in the following two contexts. They are Automation Testing, and Integration Testing.
+Tool Example:
+Cucumber, Robot Framework, etc.
+Junit, Nunit, etc.
+
+A test harness simply is to create the correct framework and use it (and all of its constituent elements) to control the entire activity as to get the most of the situation- whether automation or integration. 
+
+# Selenium is best choice for automating becuase it is open source and free. We can use it on any web browser and with any programming language.
+
+# Cucumber framework is written in Gherkin language.
+It is an easy to understand laguage so that non technical business ppls can understand.
+First we will have to create a feature file where we will write all our scenarios to be tested and the Given, When, Then for each scenario.
+Written in Given, when, then format.
+E.g.
+@Given("^user is on login page$")
+public void user_login() {
+    System.out.println("user is on login page");
+} 
+
+@When("^user enters correct username and password$") {
+public void user_creds() {
+    System.out.println("user enters correct username and password");
+}
+
+@Then("^user gets confirmation$") {
+public void user_conf() {
+    System.out.println("user gets confirmation");   
+}
+
+
+Q. TestNG
+- TestNG is a testing framework inspired from JUnit but with some new functionalities.
+Annotations are used to specify the sequence and priority in which the methods are to be executed.
+Hierarchy in tags in testng.xml file:
+suite -> test -> classes -> class -> method
+E.g
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="test1">
+        <parameter name="uid" value="mngr265692"/>
+        <parameter name="pwd" value="amApUbu"/>
+        <classes>
+            <class name="ParameterTest">
+                <methods>
+                    <include name = "methodName1"/>
+                    <include name = "methodName2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
+
+You can specify package names instead of class names.
+<suite name="Suite1" verbose="1" >
+  <test name="Regression1"   >
+    <packages>
+      <package name="test.sample" />
+   </packages>
+ </test>
+</suite>
+
+
+Annotations:
+@BeforeSuite
+@AfterSuite
+@BeforeTest
+@AfterTest
+@BeforeGroups
+@AfterGroups
+@BeforeClass : run before the first test method in the current class is invoked.
+@AfterClass
+@BeforeMethod
+@AfterMethod
+
+@DataProvider:
+Marks a method as supplying data for a test method. The annotated method must return an Object[][] where each Object[] can be assigned the parameter list of the test method. The @Test method that wants to receive data from this DataProvider needs to use a dataProvider name equals to the name of this annotation.
+
+> Prioritizing test cases in TEstNG:
+By default, TestNG follows alphabetical order while executing tests. So to tell testNG which test case to execute after another we need to set the priority (0,1,2...)
+
+> Disabling a test case (Same as @ignore in JUnit)
+Put enabled = false on the top of the test method and that method will be disabled and will not execute.
+E.g. 
+@Test(priority=3, enabled=false)
+public void getName() {
+    System.out.println("Varun");
+}
+
+> Dependency tests
+These are the tests whose execution depends on the passing of another test.
+E.g.
+@Test
+void startCar() {
+    System.out.println("Start car");
+}
+
+@Test
+void driveCar() {
+    System.out.println("Drive car");
+}
+
+For driveCar method to start, the startCar method should pass. So we can write it as:
+@Test
+void startCar() {
+    System.out.println("Start car");
+}
+
+@Test(deoendsOnMethods = {"startCar", "If you want another method"})
+void driveCar() {
+    System.out.println("Drive car");
+}
+
+> AlwaysRun property:
+Even if the dependency method fails, if we want to continue with the execution we use this property.
+@Test
+void startCar() {
+    System.out.println("Start car");
+}
+
+@Test(deoendsOnMethods = {"startCar", "If you want another method"}, alwaysRun = true)
+void driveCar() {
+    System.out.println("Drive car");
+}
+
+> Grouping tests
+
+@Test(groups = {"GroupName1"})
+void startCar() {
+    System.out.println("Start car");
+}
+
+@Test(groups = {"GroupName1", "GroupName2"})
+void driveCar() {
+    System.out.println("Drive car");
+}
+
+@Test(groups = {"GroupName1"})
+void parkCar() {
+    System.out.println("Park car");
+}
+
+Now in the xml file we can specify which all test cases to run in which test.
+<suite name="All Test Suite">
+    <test name="group_test">
+        <groups>
+            <run>
+                <include name="GroupName1"/>
+            </run>
+        </groups> 
+        <classes>
+            <class name="GroupingTest"/>
+        </classes>
+    </test>
+</suite>
+
+Means only the test cases which fall under GroupName 1 will be executed.
+We can also exclude Test methods.
+<run>
+    <exclude name="GroupName1"/>
+</run>
+This means all Test methods except the ones falling under the group GroupName1 will be executed.
+
+> Assertions:
+Assert.assertTrue(condition)
+- This returns true if the inner condition is true.
+E.g Assert.assertTrue(logo.IsDisplayed(), "Logo cannot be displayed"); <- Failure message
+
+If expected is logo should not be displayed:
+Assert.assertFalse(logo.isDisplayed())
+
+> DataProviders:
+- For acheiving parameterization apart from using @Parameters
+- Used for data driven testing i.e. same test case can be run with different set of data. 
+- It marks a method for supplying data to other methods.
+- Returns an array of Objects (Object[][])
+- DataProvider has a name and it will be used in other methods by that name
+- DataProvider can be implemented in the same class or different class.
+
+If dataprovider to be used in a different class, then we need to include dataProviderClass in the @Test class.
+@Test(dataprovider = "DataProviderName", dataProviderClass = ClassName_in_which_dataprovider_is_defined.class)
+piblic void loginTest(String username, String password)
+{
+    System.Out.println(username+", "+password);
+}
+
+> Parallel testing:
+For making 2 methods run parallelly, go to Testng.xml file:
+Inside the suite tag, after name, add :-
+<suite name="All test Suite" parallel = "methods" thread-count = "2">
+.
+.
+.
+</suite>
+
+For making 2 classes run parallelly, go to Testng.xml file:
+Inside the suite tag, after name, add :-
+<suite name="All test Suite" parallel = "classes" thread-count = "2">
+.
+.
+.
+</suite>
+
+For making 2 tests run parallelly, go to Testng.xml file:
+Inside the suite tag, after name, add :-
+<suite name="All test Suite" parallel = "tests" thread-count = "2">
+.
+.
+.
+</suite>
+
+> Listeners:
+If we want to perform some actions based on the output of the Test methods, we need to use Listeners.
+Listener is defined as interface that modifies the default TestNG's behavior. As the name suggests Listeners "listen" to the event defined in the selenium script and behave accordingly.
+Types of Listeners in TestNG:
+IAnnotationTransformer ,
+IAnnotationTransformer2 ,
+IConfigurable ,
+IConfigurationListener ,
+IExecutionListener,
+IHookable ,
+IInvokedMethodListener ,
+IInvokedMethodListener2 ,
+IMethodInterceptor ,
+IReporter,
+ISuiteListener,
+ITestListener .
+
+* ITestListener has following methods-
+OnStart- OnStart method is called when any Test starts.
+onTestSuccess- onTestSuccess method is called on the success of any Test.
+onTestFailure- onTestFailure method is called on the failure of any Test.
+onTestSkipped- onTestSkipped method is called on skipped of any Test.
+onTestFailedButWithinSuccessPercentage- method is called each time Test fails but is within success percentage.
+onFinish- onFinish method is called after all Tests are executed.
+
+* Since ITestListener is an Interface, so we need to implement all the methods under it, whether we need them or not. We can keep the bodies of unwanted methods blank.
+* To connect the Listener class and the test class, there are 2 ways to do so.
+Way 1: We use @Listerner tag in the test class at class level.
+
+@Listener(pkgName.ListenerClassName.class)
+public class TestClass {
+
+    @Test
+    void test1() {
+        System.out.println("This is test1");
+    }
+}
+
+Way 2:
+In the testng.xml file, add the listener tag and specify the listener class name.
+<suite>
+    <listeners>
+        <listener class-name = "pkgName.ListenerClassName"/>
+    </listeners>
+    <test>
+        <classes>
+            <class name = "packgName.TestClass"/>
+        </classes>
+    </test>
+</suite>
+
+
+## CONTINUOUS INTEGRATION WITH MAVEN, JENKINS
+
+Execution and maintenance are 2 phases of Continuous Integration (CI).
+CI is a process where QA, Developers and DevOps all 3 teams work together towards acheiving one goal.
+We can all our test cases together from pom.xml also. pom.xml will internally execute testng.xml. But the difference is we need to have the ide open to run the TCs from testng.xml. But if we want to run the TCs from pom.xml then we need not open the ide, we can run in from command line(CLI).
+> Ways in which we can run a TC:
+- Run with Maven pom.xml
+- Run through Maven CLI
+- Run using run.bat
+- Run using Jenkins
+
+1. Runnings test cases using pom.xml within the ide.
+- Step 1: For this we need 2 plugins: 
+maven-compiler-plugin
+maven-surefire-plugin
+Add these two as dependencies in pom.xml
+<build>
+    <plugins>
+        //add the two plugins here
+        <plugin>
+        </plugin>
+        <plugin>
+        </plugin>
+    </plugins>
+</build>
+
+Update your project after that.
+Right click on the project name -> Update
+Step 2: Right click on pom.xml -> Run as Maven test
+First time we may get error as "No compiler is provided"
+Solution: 

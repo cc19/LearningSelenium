@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [All Test Suite]">
+  <test thread-count="5" name="/home/cc1/Documents/github/cc19/LearningSelenium/Guru99_BankProject(failed)">
+    <classes>
+      <class name="SS2">
+        <methods>
+          <include name="VerifyHomePage"/>
+          <include name="initialization2"/>
+          <include name="endProgram2"/>
+        </methods>
+      </class> <!-- SS2 -->
+    </classes>
+  </test> <!-- /home/cc1/Documents/github/cc19/LearningSelenium/Guru99_BankProject(failed) -->
+</suite> <!-- Failed suite [All Test Suite] -->
