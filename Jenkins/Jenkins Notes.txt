@@ -1,0 +1,116 @@
+JENKINS
+- Is a java application
+- Is platform independent
+- Used for continuous integration and continuous delivery (CICD)
+
+Developer writes his code and sends it to a repository like github. As soon as it enters repository, Jenkins grabs the code and runs it to create a build. If there is any problem or error with the build, the new commit is then and there reversed back.
+The build if passes successfully and is then flowed for post build steps like unit testing or performance testing and its output is published to Live server. If any issue is discovered, then that newly committed code is found to be causing it, thus the developer can troubleshoot it then and there.
+This is called Continuous Integration.
+As soon as there is any change in the code, this whole prcoess gets triggered and if there is any issue, we can get to know about it immediately.
+
+> Getting Started on standalone server (on windows)
+1. Go to google and search Jenkins. Open Jenkins.io site and download Jenkins for the OS we are using. Install it. After it is installed, the browser will automatically be opened with localhost:8080 which is the default for Jenkins. There a path will be mentioned from where you can find the admin password for logging in. Log in into Jenkins.
+2. Click on Select plugins to install. Click on suggested link at top and click install.
+3. After they are installed, it will ask to continue as admin or create new user. We continued as admin. And we kept default URL for Jenkins as localhost:8080 only.
+
+> Getting started on other servlet container (TomCat)
+- We should use Tomcat 5 or above for Jenkins. 
+- Java 7 or above should be available
+1. Download Tomcat from http://tomcat.apache.org/
+We downloaded Tomcat 9. 
+We need to place the .war file of Jenkins inside webapps folder of tomcat and then try opening localhost:8080. It should open the tomcat home page.
+
+> Running the selenium test from command prompt
+We need to add the below dependency(for the lastest version) in pom.xml file:
+<dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.6.2</version>
+        <scope>test</scope>
+</dependency>
+
+If doing with TestNG, then no need to add anything extra.
+
+Also we need to add the plugin:
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+            <configuration>
+                <includes>
+                    <include><Test fileName1.java</include>
+                    <include><Test fileName2.java</include>
+                    .
+                    .
+                    .
+                    <include><Test fileName.java</include>
+                </includes>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+Then in command prompt, we will cd to the project folder.
+Run the command : mvn clean test
+It should run the tests.
+
+> Setting up Jenkins
+# Add Maven in Jenkins: Go to Manage Jenkins -> Manage Plugin
+Click on Available tab -> Search for Maven
+Enable the checkbox and download and restart Jenkins.
+After Jenkins restarts: 
+Go to Manage Jenkins->Global tool configuration->Maven -> Add Maven_home variable value (i.e. path of the maven file on your system)
+Uncheck install automatically
+
+# Add jdk in Jenkins
+Go To Jenkins -> Manage Jenkins -> Global Tool Configuration -> JDK. Provide path to the JDK under JAVA_HOME field
+Uncheck install automatically
+
+> Building a Maven project
+1. Go to Jenkins Dashboard -> New Item -> Choose name for the Maven Project (e.g. MyFirstMavenExample)
+2. On Configure Page, set the following:
+a). Discard Old builds
+Days to keep builds: 1
+Max of builds to keep: 5
+3. JDK (to be used for this project) Java-1.8
+4. Build -> adavanced -> enable the following
+- Resolve Dependencies during Pom parsing
+- Use custom workspace (add path of the folder containing pom.xml)
+-Goals & Options = clean compile test (In lower case specifically)
+5. Apply & Save
+6. Check in the system of your windows :
+System -> advanced settings -> environment variables
+Set the PATH : Append with the folder path of the jdk
+If, user variable is pointing towards JRE, then update it to point towards java path.
+
+Go to Project Window and Click ‘Build Now’.
+
+> Integration with Continuous Integration
+Means the build will run at a certain time. To set this we will go to:
+Select the test -> Configure -> Build triggers
+From where we can select when to run the build.
+E.g. Whenever there is a commit in some particular project like a dev project or whenever we have some build, we want to run our test. For doing this we need to check the Poll SCM checkbox in build trigger.
+
+> Publish results using TestNG results in Jenkins:
+Jenkins -> Manage Jenkins -> Manage Plugins -> Available Tab -> Search for TestNG -> Check on TestNG results -> Download and install after restart.
+Select the test -> Configure -> Post Build Actions -> Add Post Build Action -> Publish TestNG results -> Enter TestNG XML Report Pattern as ‘**/testng-results.xml‘ -> click on ‘Save‘ button.
+Build Now.
+After test run is complete, go to project -> we can see a link for testNG results.
+
+## Common issues:
+1. Tests running, success but browser wont open.
+- Go to Registry Editor, then open:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Windows
+The NoInteractiveServices value defaults to 1, which means that no service is allowed to run interactively. Change it to 0.
+2. No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+- Add the JDK path in Jenkins -> Global Tool Configuration and Restart the system.
+3. mvn is not recognized as an internal or external command.
+- We need to install maven in our system
+4. Cannot find maven as a project option in Jenkins
+- We need to install the maven plugins in Jenkins
+5. While running the tests on cmd, it shows build success but tests dont run.
+- It happens in JUnit. Need to add JUnit engine dependency.
+6. Asynchronous Error in Jenkins
+- Delete all records from fingerprint folder.

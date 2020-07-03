@@ -1,0 +1,28 @@
+git config --global user.email "chandujan2018@gmail.com"
+git config --global user.name "cc19"
+
+// Initializing the git repository on local
+git init
+//Connection establishing between local and remote
+git remote add <remotename> <remote URL>
+//Checking if connection is established/ To check remote name
+git remote -v
+//Creating .ignore file and specify the files/folders not to be uploaded
+touch .gitignore
+//Check the tracking status of files
+git status
+//Adding all the files for tracking by git. except the ones mentioned in .gitignore
+git add .
+git status
+//Committing the changes to local version
+git commit -m <message>
+//Pushing from local to remote
+git push <remote name> <remote branch>
+//Pulling data from git remote to git local
+git pull <remote name> <branch name>
+//Downloading a folder from git to local machine
+git clone <clone URL>
+// To see branches
+git branch --list
+// Adding new stuff to previous commit (If anything is left out last time accidentally)
+git commit --amend
