@@ -15,6 +15,6 @@ Feature: Test the login functionality on Guru99 bank website
     Examples:
      | username | password |
      | mngr265692 | amApUbu |
-     | user | amApUbu |
-     | mngr265692 | pwd |
-     | himshim | jimjam |
+#     | user | amApUbu |
+#     | mngr265692 | pwd |
+#     | himshim | jimjam |

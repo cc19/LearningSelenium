@@ -1,0 +1,39 @@
+Jenkins password: 10913d5ffc0149fe9cb01b1deacb4402
+port 8080
+
+> Jenkins installation:
+Search on google "download jenkins war file"
+From the search results go to https://updates.jenkins-ci.org/download/war/
+Download the latest version
+Move the file to any folder location, away from Downloads (recommended, not mandatory)
+Go to the file path from terminal
+Run it using the command: java -jar jenkins.war
+It will generate a password during the process.
+Go to localhost:8080 in the browser (8080 is the default port for Jenkins)
+Enter the password
+Install recommended plugins
+
+Enter your username: chandrima
+password: June_2020
+email id: chandrimasn@gmail.com
+Save and Continue
+Start using Jenkins
+
+
+> Jenkins
+We can add more users from People tab
+
+Click New Item -> There is no Maven project by default. 
+If our project is completely based on Maven, then we need to download Maven plugin.
+
+Go to Jenkins in menu -> Manage Jenkins -> Manage plugins -> Go to Available tab -> Search for Maven.
+Select almost all plugins with name containing Maven.
+CLick 'Download and Install after restart'.
+After Jenkins is restarted, click on New Item from home page. We will get Maven Project as an option.
+Provide a project name in the Item name box, click on Maven Project and ok. Provide a description. 
+Come to build section. Click tool config, Go to Maven section, Add Maven, provide a name. Apply, Save. Close the tab. Come back to previous tab.
+Provide the location of pom.xml file in the Root pom box.
+In the goals and Options box, write clean install
+Whenever Maven will trigger the build, it will first clean it and then install and execute the TCs. Apply and Save.
+Go to Jenkins -> Manage Jenkins -> Manage Plugin -> Available tab -> Search for testng -> It will return TestNG results plugin -> Select it -> Click 'Download now and install afetr restart'.
+After restart, from the home page select the maven project we created and go to configure. Go to 'Post-build Actions'. From the drop down select 'Publish TestNG results'. Keep the testng-results.xml path as **/testng-results.xml as it is. Apply. Save.

@@ -67,3 +67,35 @@ docker run <imageName>: creates a container from an image
 docker stop <containerId or containerName>: stops a running container
 docker system prune -f: removes all stopped containers. do not touch running containers
 docker system prune -a: removes all stopped containers + unused images. donot touch running containers.
+
+> Docker Pull:
+When we type docker 'docker' in our terminal, it calls the docker client. 
+Docker server is a daemon which is always up and running in our machine. Daemon means a background process that handles requests for services such as print spooling and file transfers, and is dormant when not required. Server exposes some REST APIs.
+The function of docker client is to accept the parameters from the terminal, send them to docker server and call the APIs to get the job done. 
+Docker server will check its local image repository. The very first time the repository is empty. SO the docker server will go and check the docker hub for the image matching the users request. Upon getting one, the server will pull that image and place it in the local image repository and will start the application.
+E.g docker run hello-world      <--hello-world is the application
+
+Once the application is downloaded in the repository, from the next time, when we run the same application, it will run it from the repository and will not check the docker hub. But if there is an update on the application, we will not get it.
+So to get the latest version of the application we need to do:
+docker pull appl_name
+E.g docker pull hello-world
+Only the updated portions gets downloaded.
+
+> Pulling an image
+docker system prune -a : cleared our system of all stopped containers and unused images
+docker images : checked the image repository
+docker ps -a : shows list of all containers inclusing stopped ones
+docker run hello-world : Docker daemon will download the image from the hub and show it.
+docker pull hello-world : Checks if any update is available in the hub.
+
+> Image Name format:
+the full name of an image should be like:
+[repository-host:port]/[owner]/image-name[:tag]
+[repository-host:port] -> hub.docker.com
+[owner] -> library (docker official) (If we create an image, then the owner will be our name.)
+[tag] -> latest
+Here except image-name all other information are optional.
+If the image is not present in hub.docker.com, then we will have to put all the information in the pull request.
+
+> Creating a container
+Frequently used images: ubuntu, busybox, alpine
