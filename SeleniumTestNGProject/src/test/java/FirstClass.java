@@ -7,7 +7,7 @@ public class FirstClass {
 
     @Test
     public void LoginTest() {
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\cc1\\Documents\\software\\geckodriver-v0.26.0-win64\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver","/home/cc1/Documents/software/geckodriver");
         WebDriver driver = new FirefoxDriver();
         driver.get("https://www.google.com/");
         driver.findElement(By.name("q")).sendKeys("Maven Central");

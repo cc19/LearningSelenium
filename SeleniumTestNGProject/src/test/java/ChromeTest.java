@@ -5,9 +5,9 @@ import org.testng.annotations.Test;
 
 public class ChromeTest {
 
-    @Test(enabled = false)
+    @Test
     public void ChromeGoogleTest() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cc1\\Documents\\software\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/home/cc1/Documents/software/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.google.com/");
         driver.findElement(By.name("q")).sendKeys("Maven Central");

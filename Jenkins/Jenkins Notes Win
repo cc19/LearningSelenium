@@ -13,6 +13,19 @@ As soon as there is any change in the code, this whole prcoess gets triggered an
 2. Click on Select plugins to install. Click on suggested link at top and click install.
 3. After they are installed, it will ask to continue as admin or create new user. We continued as admin. And we kept default URL for Jenkins as localhost:8080 only.
 
+> Installing Jenkins on Linux:
+1. Download the .war file
+2. Open up a terminal/command prompt window to the directory where the war file is placed.
+3. Run the command: java -jar jenkins.war.
+4. Check localhost:8080
+# Setup Maven home
+Open bashrc and write: export PATH="$PATH:/home/cc1/Documents/software/apache-maven-3.6.3/bin". No need to set it separately in Jenkins.
+# Setting up JDK path:
+Three Step Process: 
+First: open Terminal->$ whereis java it would give output like this: java: /usr/bin/java /usr/share/java /usr/share/man/man1/java.1.gz
+Second: ls -l /usr/bin/java It would give output like this: lrwxrwxrwx 1 root root 22 Feb  9 10:59 /usr/bin/java -> /etc/alternatives/java
+Third: ls -l /etc/alternatives/java output is the JDK path: lrwxrwxrwx 1 root root 46 Feb  9 10:59 /etc/alternatives/java -> /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
 > Getting started on other servlet container (TomCat)
 - We should use Tomcat 5 or above for Jenkins. 
 - Java 7 or above should be available
