@@ -1,6 +1,7 @@
 package HomePage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +13,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class hotelSearching {
@@ -60,7 +62,7 @@ public class hotelSearching {
         driver.findElement(By.className("htlhp_btn")).click();
         String expectedTitle = "Hotel List";
         Assert.assertEquals(driver.getTitle(),expectedTitle);
-
+        Thread.sleep(10000);
         //hotel selection
         hotelSelection();
     }
@@ -194,7 +196,7 @@ public class hotelSearching {
                for (int i = 1; i <= diff4; i++) {
                    ChildRoomPlus.click();
                    Select ageOfChild = new Select(driver.findElement(By.id("Child_Age_1_"+i)));
-                   ageOfChild.selectByVisibleText(ageOfChildren[1][i-1]);
+                   ageOfChild.selectByVisibleText(ageOfChildren[0][i-1]);
                }
            } else {}
 
@@ -245,13 +247,41 @@ public class hotelSearching {
         doneButton.click();
     }
 
-    private void hotelSelection() {
+    private void hotelSelection() throws InterruptedException {
 
-        WebDriverWait w = new WebDriverWait(driver, 10);
-        w.until(ExpectedConditions.visibilityOfElementLocated(By.id("hotelListDiv")));
-        WebElement hotelList = driver.findElement(By.id("hotelListDiv"));
-        List<WebElement> hotelNames = hotelList.findElements(By.className("hoteNme ng-binding"));
-        System.out.println(hotelNames.get(0).getText());
+        //Filtering hotels
+        WebElement sidebar = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div"));
+        WebElement resetAll = sidebar.findElement(By.className("resetAll"));
+        WebElement setMinPrice = sidebar.findElement(By.id("amount_min"));
+        WebElement setMaxPrice = sidebar.findElement(By.id("amount_max"));
+        Select sort = new Select(driver.findElement(By.id("drpHighList")));
+        List<WebElement> starRating = sidebar.findElements(By.name("selectedRating"));
+//        WebElement resetAll = sidebar.findElement(By.className("resetAll"));
+//        WebElement resetAll = sidebar.findElement(By.className("resetAll"));
+
+        setMinPrice.clear();
+        setMinPrice.sendKeys(Keys.chord("8000", Keys.TAB));
+        //setMinPrice.sendKeys("8000");
+        setMaxPrice.clear();
+        setMaxPrice.sendKeys("12000");
+        Thread.sleep(2000);
+        for (WebElement rating: starRating) {
+            if(rating.getAttribute("value").contains("3"))
+                rating.click();
+        }
+
+        //Sorting Hotels
+        sort.selectByVisibleText("Price - Low to High");
+
+        //Select the hotel
+        WebElement hotelList = driver.findElement(By.xpath("//*[@id=\"hotelListDiv\"]"));
+        List<WebElement> hotelNames = new ArrayList<WebElement>();
+        for (int i=1; i< 5; i++) {
+            WebElement hotelName = hotelList.findElement(By.xpath("//*[@id=\"hotelListDiv\"]/div["+i+"]"));
+            hotelNames.add(hotelName);
+        }
+
+
     }
 
 //    @AfterTest

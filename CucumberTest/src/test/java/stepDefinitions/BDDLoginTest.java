@@ -1,3 +1,8 @@
+/* Used to segregate the feature file from the underlying code.
+Each step of the feature file can be mapped to a corresponding method on the step definition file
+ */
+
+
 package stepDefinitions;
 
 import Utilities.Variables;
